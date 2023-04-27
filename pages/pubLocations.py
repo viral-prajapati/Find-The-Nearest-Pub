@@ -7,27 +7,27 @@ from app import df
 
 st.markdown("<h1 style='text-align: center; color: #fc9003; font-weight: bold;'>Pub Locations 🍺</h1>", unsafe_allow_html=True)
 
-search_type = st.radio("**:green[How do you want to search Pub Locations:]**", ('Postal Code', 'Local Authority'))
+type = st.radio("**:green[How do you want to search Pub Locations:]**", ('Postal Code', 'Local Authority'))
 
-if search_type == 'Postal Code':
-    search_list = sorted(df['postcode'].unique())
+if type == 'Postal Code':
+    list_of = sorted(df['postcode'].unique())
 else:
-    search_list = sorted(df['local_authority'].unique())
+    list_of = sorted(df['local_authority'].unique())
 
-search_value = st.selectbox(f"**:green[Select a {search_type}:]**", search_list)
+search_val = st.selectbox(f"**:green[Select a {type}:]**", list_of)
 
-if search_type == 'Postal Code':
-    filtered_data = df[df['postcode'] == search_value]
+if type == 'Postal Code':
+    new_data = df[df['postcode'] == search_val]
 else:
-    filtered_data = df[df['local_authority'] == search_value]
+    new_data = df[df['local_authority'] == search_val]
 
 st.write("**:blue[List of Pubs:]**")
-st.dataframe(filtered_data)
+st.dataframe(new_data)
 
 st.write("**:blue[MAP:]**")
-map = folium.Map(location=[filtered_data['latitude'].mean(), filtered_data['longitude'].mean()], zoom_start=13)
+map = folium.Map(location=[new_data['latitude'].mean(), new_data['longitude'].mean()], zoom_start=13)
 
-for index, row in filtered_data.iterrows():
+for index, row in new_data.iterrows():
     folium.Marker(location=[row['latitude'], row['longitude']], popup=row['name'],icon=folium.Icon(icon='beer', prefix='fa', color='orange')).add_to(map)
 
 folium_static(map)
