@@ -9,6 +9,8 @@ df = df.dropna()
 df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
 df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
 
+st.balloons()
+
 # My bio data
 
 st.markdown("<h1 style='color: red'>Hello! I am Viral Prajapati</h1>", unsafe_allow_html=True)
